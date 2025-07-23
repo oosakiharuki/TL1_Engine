@@ -24,14 +24,14 @@ void TestClass::Init() {
 
 	object_ = new Object3d();
 	object_->Initialize();
-	object_->SetModelFile("grass01");
+	object_->SetModelFile("terrain");
 	worldTransform_.scale_ = { 0.5f,0.5f,0.5f };	
 	
 	levelData = new LevelData();
 
 	//json
 	//ファイルを選択
-	const std::string fullpath = "resource/Levelediter/TL1_01_12.json";
+	const std::string fullpath = "resource/Levelediter/TL1_02_02.json";
 
 	//ファイルストリーム
 	std::ifstream file;

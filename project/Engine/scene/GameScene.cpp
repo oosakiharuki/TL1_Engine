@@ -3,7 +3,9 @@
 void GameScene::Initialize() {
 
 	ModelManager::GetInstance()->LoadModel("cannon");
- 
+	ModelManager::GetInstance()->LoadModel("playerHead");
+	ModelManager::GetInstance()->LoadModel("terrain");
+
 	camera = new Camera();
 	//Vector3 cameraRotate = { 1.4f,0.0f,0.0f };
 	//Vector3 cameraTranslate = { 0.0f,30.0f,-8.0f };
