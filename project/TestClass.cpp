@@ -31,7 +31,7 @@ void TestClass::Init() {
 
 	//json
 	//ファイルを選択
-	const std::string fullpath = "resource/Levelediter/TL1_02_02.json";
+	const std::string fullpath = "resource/Levelediter/TL1_02_03.json";
 
 	//ファイルストリーム
 	std::ifstream file;
@@ -62,6 +62,15 @@ void TestClass::Init() {
 
 	for (nlohmann::json& object : deserialized["objects"]) {
 		assert(object.contains("type"));
+
+		if (object.contains("disabled")) {
+			bool disabled = object["disabled"].get<bool>();//jsonの値を入れる
+			if (disabled) {
+				//Trueの場合 配置しない
+				continue;
+			}
+		}
+
 
 		std::string type = object["type"].get<std::string>();
 
