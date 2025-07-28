@@ -5,12 +5,13 @@ void GameScene::Initialize() {
 	ModelManager::GetInstance()->LoadModel("cannon");
 	ModelManager::GetInstance()->LoadModel("playerHead");
 	ModelManager::GetInstance()->LoadModel("terrain");
+	ModelManager::GetInstance()->LoadModel("key");
 
 	camera = new Camera();
 	//Vector3 cameraRotate = { 1.4f,0.0f,0.0f };
 	//Vector3 cameraTranslate = { 0.0f,30.0f,-8.0f };
-	cameraRotate = { 1.2f,0.0f,0.0f };
-	cameraTranslate = { 0.0f,20.0f,-8.0f };
+	cameraRotate = { 0.37f,0.0f,0.0f };
+	cameraTranslate = { 0.0f,16.0f,-30.0f };
 
 	camera->SetRotate(cameraRotate);
 	camera->SetTranslate(cameraTranslate);

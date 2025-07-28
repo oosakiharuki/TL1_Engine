@@ -2,6 +2,7 @@
 #include "WorldTransform.h"
 #include "Object3d.h"
 #include "MyMath.h"
+#include "Player.h"
 
 
 class TestClass {
@@ -14,8 +15,14 @@ struct LevelData {
 		Vector3 translation;
 		Vector3 rotation;
 		Vector3 scaling;
+	};	
+	//プレイヤーのスポーン場所
+	struct PlayerSpawnData {
+		Vector3 translation;
+		Vector3 rotation;
 	};
 	std::vector<ObjectData> objects;
+	std::vector<PlayerSpawnData> players;
 };
 
 	TestClass();
@@ -37,4 +44,5 @@ private:
 	std::vector<WorldTransform*> worldTransforms;
 	std::vector<Object3d*> objects;
 
+	Player* player;
 };

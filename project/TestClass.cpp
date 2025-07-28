@@ -17,6 +17,7 @@ TestClass::~TestClass() {
 		delete object;
 	}
 	objects.clear();
+	delete player;
 }
 
 void TestClass::Init() {
@@ -31,7 +32,7 @@ void TestClass::Init() {
 
 	//json
 	//ファイルを選択
-	const std::string fullpath = "resource/Levelediter/TL1_02_03.json";
+	const std::string fullpath = "resource/Levelediter/TL1_02_04.json";
 
 	//ファイルストリーム
 	std::ifstream file;
@@ -100,6 +101,23 @@ void TestClass::Init() {
 			objectData.scaling.y = (float)transform["scaling"][2];
 			objectData.scaling.z = (float)transform["scaling"][1];
 		}
+		else if (type.compare("PlayerSpawn") == 0) {
+			//要素追加
+			levelData->players.emplace_back(LevelData::PlayerSpawnData{});
+			//
+			LevelData::PlayerSpawnData& playerSpawnData = levelData->players.back();
+			//トランスフォームのパラメータ読み込み
+			nlohmann::json& transform = object["transform"];
+			//BlenderのY軸とZ軸と違うため y = [2],z = [1]
+			//移動
+			playerSpawnData.translation.x = (float)transform["translation"][0];
+			playerSpawnData.translation.y = (float)transform["translation"][2];
+			playerSpawnData.translation.z = (float)transform["translation"][1];
+			//回転
+			playerSpawnData.rotation.x = (float)transform["rotation"][0];
+			playerSpawnData.rotation.y = (float)transform["rotation"][2];
+			playerSpawnData.rotation.z = (float)transform["rotation"][1];
+		}
 
 		//子ノード
 		if (object.contains("children")) {
@@ -129,11 +147,21 @@ void TestClass::Init() {
 		worldTransforms.push_back(newObject);
 	}
 
+	player = new Player();
+	player->Initialize();
+	
+	//プレイヤー配置データがあるときプレイヤーを配置
+	if (!levelData->players.empty()) {
+		auto& playerData = levelData->players[0];
+		player->SetTranslate(playerData.translation);
+		player->SetRotate(playerData.rotation);
+	}
 
 }
 
 void TestClass::Update() {
 	
+	player->Update();
 
 	onLight = true;
 
@@ -175,5 +203,5 @@ void TestClass::Draw() {
 	}
 
 	//object_->Draw(worldTransform_);
-
+	player->Draw();
 }
