@@ -247,9 +247,10 @@ namespace MyMath {
 
 	Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
 
-		Matrix4x4 resultX = MakeRotateXMatrix(rotate.x);
-		Matrix4x4 resultY = MakeRotateYMatrix(rotate.y);
-		Matrix4x4 resultZ = MakeRotateZMatrix(rotate.z);
+		//角度に合わせる
+		Matrix4x4 resultX = MakeRotateXMatrix(rotate.x * -(float(M_PI) / 180.0f));
+		Matrix4x4 resultY = MakeRotateYMatrix(rotate.y * -(float(M_PI) / 180.0f));
+		Matrix4x4 resultZ = MakeRotateZMatrix(rotate.z * -(float(M_PI) / 180.0f));
 
 		Matrix4x4 rotateXYZ = Multiply(resultX, Multiply(resultY, resultZ));
 

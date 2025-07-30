@@ -19,10 +19,6 @@ public:
 private:
 
 
-	Camera* camera = nullptr;
-	Vector3 cameraRotate = { 0.0f,0.0f,0.0f };
-	Vector3 cameraTranslate = { 0.0f,0.0f,-15.0f };
-
 	//std::vector<Sprite*> sprites;
 	//std::vector<Object3d*> objects;
 	Sprite* spriteUI;

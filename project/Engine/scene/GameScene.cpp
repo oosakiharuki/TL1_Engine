@@ -6,18 +6,6 @@ void GameScene::Initialize() {
 	ModelManager::GetInstance()->LoadModel("terrain");
 	ModelManager::GetInstance()->LoadModel("enemy");
 
-	camera = new Camera();
-	//Vector3 cameraRotate = { 1.4f,0.0f,0.0f };
-	//Vector3 cameraTranslate = { 0.0f,30.0f,-8.0f };
-	cameraRotate = { 0.37f,0.0f,0.0f };
-	cameraTranslate = { 0.0f,16.0f,-30.0f };
-
-	camera->SetRotate(cameraRotate);
-	camera->SetTranslate(cameraTranslate);
-	
-	Object3dCommon::GetInstance()->SetDefaultCamera(camera);
-	ParticleCommon::GetInstance()->SetDefaultCamera(camera);
-
  	testClass = new TestClass();
  	testClass->Init();
 
@@ -56,32 +44,10 @@ void GameScene::Update() {
 	objectG->Update();
 	wt.UpdateMatrix();
 
-	camera->Update();
 	
 	spriteUI->SetSize(Vector2(128, 128));
 	spriteUI->Update();
 
-#ifdef  USE_IMGUI
-
-	//ここにテキストを入れられる
-
-	//開発用UIの処理
-	//ImGui::ShowDemoWindow();
-
-	ImGui::Begin("camera");
-	ImGui::Text("ImGuiText");
-
-	//カメラ
-	ImGui::SliderFloat3("cameraTranslate", &cameraTranslate.x, -30.0f, 30.0f);
-
-	ImGui::SliderFloat("cameraRotateX", &cameraRotate.x, -10.0f, 10.0f);
-	ImGui::SliderFloat("cameraRotateY", &cameraRotate.y, -10.0f, 10.0f);
-	ImGui::SliderFloat("cameraRotateZ", &cameraRotate.z, -10.0f, 10.0f);
-	camera->SetRotate(cameraRotate);
-	camera->SetTranslate(cameraTranslate);
-
-	ImGui::End();
-#endif //  USE_IMGUI
 }
 
 void GameScene::Draw() {
@@ -109,7 +75,6 @@ void GameScene::Draw() {
 }
 void GameScene::Finalize() {
 	
-	delete camera;
 	delete testClass;
 
 	delete spriteUI;

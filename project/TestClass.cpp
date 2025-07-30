@@ -6,6 +6,9 @@
 #include <json.hpp>
 #include <fstream>
 
+#include "Object3dCommon.h"
+#include "ParticleCommon.h"
+
 using namespace MyMath;
 
 TestClass::TestClass(){}
@@ -23,6 +26,7 @@ TestClass::~TestClass() {
 		delete enemy;
 	}
 	enemies.clear();
+	delete camera;
 }
 
 void TestClass::Init() {
@@ -35,9 +39,14 @@ void TestClass::Init() {
 	
 	levelData = new LevelData();
 
+
+	camera = new Camera();
+	Object3dCommon::GetInstance()->SetDefaultCamera(camera);
+	ParticleCommon::GetInstance()->SetDefaultCamera(camera);
+
 	//json
 	//ファイルを選択
-	const std::string fullpath = "resource/Levelediter/TL1_02_05.json";
+	const std::string fullpath = "resource/Levelediter/TL1_02_camera.json";
 
 	//ファイルストリーム
 	std::ifstream file;
@@ -142,6 +151,25 @@ void TestClass::Init() {
 
 			//enemySpawnData.fileName = transform["name"];
 		}
+		else if (type.compare("CAMERA") == 0) {
+			//要素追加
+			levelData->cameraInit = LevelData::CameraInitData{};
+			//
+			LevelData::CameraInitData& cameraInitData = levelData->cameraInit;
+			//トランスフォームのパラメータ読み込み
+			nlohmann::json& transform = object["transform"];
+			//移動
+			cameraInitData.translation.x = (float)transform["translation"][0];
+			cameraInitData.translation.y = (float)transform["translation"][2];
+			cameraInitData.translation.z = (float)transform["translation"][1];
+			//回転
+			cameraInitData.rotation.x = (float)transform["rotation"][0] - 90.0f;//blenderだと0度で真下を向くため
+			cameraInitData.rotation.y = (float)transform["rotation"][2];
+			cameraInitData.rotation.z = (float)transform["rotation"][1];
+
+			cameraRotate = cameraInitData.rotation;
+			cameraTranslate = cameraInitData.translation;
+		}
 
 		//子ノード
 		if (object.contains("children")) {
@@ -191,6 +219,9 @@ void TestClass::Init() {
 		}
 	}
 
+	camera->SetRotate(cameraRotate);
+	camera->SetTranslate(cameraTranslate);
+
 }
 
 void TestClass::Update() {
@@ -201,6 +232,7 @@ void TestClass::Update() {
 		enemy->Update();
 	}
 
+	camera->Update();
 
 	onLight = true;
 
@@ -219,7 +251,27 @@ void TestClass::Update() {
 
 	ImGui::End();
 
-#endif // _DEBUG
+	//ここにテキストを入れられる
+
+	//開発用UIの処理
+	//ImGui::ShowDemoWindow();
+
+	ImGui::Begin("camera");
+	ImGui::Text("ImGuiText");
+
+	//カメラ
+	ImGui::InputFloat3("cameraTranslate", &cameraTranslate.x);
+	ImGui::SliderFloat3("cameraTranslateSlider", &cameraTranslate.x, -30.0f, 30.0f);
+	
+	ImGui::InputFloat3("cameraRotate", &cameraRotate.x);
+	ImGui::SliderFloat("cameraRotateX", &cameraRotate.x, -360.0f, 360.0f);
+	ImGui::SliderFloat("cameraRotateY", &cameraRotate.y, -360.0f, 360.0f);
+	ImGui::SliderFloat("cameraRotateZ", &cameraRotate.z, -360.0f, 360.0f);
+	camera->SetRotate(cameraRotate);
+	camera->SetTranslate(cameraTranslate);
+
+	ImGui::End();
+#endif //  USE_IMGUI
 
 	object_->LightSwitch(onLight);
 	

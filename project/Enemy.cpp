@@ -16,8 +16,7 @@ void Enemy::Initialize() {
 }
 
 void Enemy::Update() {
-
-	worldTransform.rotation_.y += 0.05f;
+	worldTransform.rotation_.y += 1.0f;
 	worldTransform.UpdateMatrix();
 }
 

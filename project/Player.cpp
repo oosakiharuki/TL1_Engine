@@ -16,12 +16,12 @@ void Player::Initialize() {
 }
 
 void Player::Update() {
-	if (Input::GetInstance()->PushKey(DIK_W)) {
-		worldTransform.translation_.y = 1.0f;
-	}
-	else {
-		worldTransform.translation_.y = 0.0f;
-	}
+	//if (Input::GetInstance()->PushKey(DIK_W)) {
+	//	worldTransform.translation_.y = 1.0f;
+	//}
+	//else {
+	//	worldTransform.translation_.y = 0.0f;
+	//}
 
 	worldTransform.UpdateMatrix();
 }

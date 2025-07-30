@@ -27,9 +27,15 @@ struct LevelData {
 		Vector3 translation;
 		Vector3 rotation;
 	};
+	//カメラの初期位置
+	struct CameraInitData {
+		Vector3 translation;
+		Vector3 rotation;
+	};
 	std::vector<ObjectData> objects;
 	std::vector<PlayerSpawnData> players;
 	std::vector<EnemySpawnData> spawnEnemies;
+	CameraInitData cameraInit;
 };
 
 	TestClass();
@@ -45,7 +51,9 @@ private:
 	Camera* camera_ = nullptr;
 	bool onLight = false;
 
-
+	Camera* camera = nullptr;
+	Vector3 cameraRotate;
+	Vector3 cameraTranslate;
 
 	LevelData* levelData;
 	std::vector<WorldTransform*> worldTransforms;
