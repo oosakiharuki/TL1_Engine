@@ -2,10 +2,9 @@
 
 void GameScene::Initialize() {
 
-	ModelManager::GetInstance()->LoadModel("cannon");
 	ModelManager::GetInstance()->LoadModel("playerHead");
 	ModelManager::GetInstance()->LoadModel("terrain");
-	ModelManager::GetInstance()->LoadModel("key");
+	ModelManager::GetInstance()->LoadModel("enemy");
 
 	camera = new Camera();
 	//Vector3 cameraRotate = { 1.4f,0.0f,0.0f };
@@ -25,6 +24,13 @@ void GameScene::Initialize() {
 	spriteUI = new Sprite();
 	spriteUI->Initialize("uvChecker.png");
 
+	objectG = new Object3d();
+	objectG->Initialize();
+	objectG->SetModelFile("terrain");
+
+	wt.Initialize();
+	wt.translation_.y = -1.0f;
+	wt.scale_ = { 2,2,2 };
 }
 
 void GameScene::Update() {
@@ -42,6 +48,13 @@ void GameScene::Update() {
 	}
 
 	testClass->Update();
+	
+	bool onLight = false;
+
+	objectG->LightSwitch(onLight);
+	//床
+	objectG->Update();
+	wt.UpdateMatrix();
 
 	camera->Update();
 	
@@ -80,6 +93,7 @@ void GameScene::Draw() {
 	//モデル描画処理
 	Object3dCommon::GetInstance()->Command();
 
+	objectG->Draw(wt);
 	testClass->Draw();
 
 	//パーティクル描画処理
@@ -99,4 +113,5 @@ void GameScene::Finalize() {
 	delete testClass;
 
 	delete spriteUI;
+	delete objectG;
 }

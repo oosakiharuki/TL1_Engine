@@ -113,7 +113,7 @@ void PostEffect::GraphicsPipeline() {
 	Microsoft::WRL::ComPtr<IDxcBlob> vertexShaderBlob = dxCommon_->CompileShader(L"resource/shaders/Fullscreen.VS.hlsl", L"vs_6_0");//フルスクリーン処理(共通処理)
 	assert(vertexShaderBlob != nullptr);
 
-	Microsoft::WRL::ComPtr<IDxcBlob> pixelShaderBlob = dxCommon_->CompileShader(L"resource/shaders/Vignette.PS.hlsl", L"ps_6_0");//ココのみ変化させる
+	Microsoft::WRL::ComPtr<IDxcBlob> pixelShaderBlob = dxCommon_->CompileShader(L"resource/shaders/CopyImage.PS.hlsl", L"ps_6_0");//ココのみ変化させる
 	assert(pixelShaderBlob != nullptr);
 
 

@@ -99,6 +99,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine\2d\ImGuiManager.cpp" />
     <ClCompile Include="Engine\3d\Camera.cpp" />
     <ClCompile Include="Engine\3d\Particle.cpp" />
@@ -142,6 +143,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="TestClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine\2d\ImGuiManager.h" />
     <ClInclude Include="Engine\3d\Camera.h" />
     <ClInclude Include="Engine\3d\Particle.h" />

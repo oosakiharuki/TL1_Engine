@@ -18,6 +18,11 @@ TestClass::~TestClass() {
 	}
 	objects.clear();
 	delete player;
+
+	for (auto& enemy : enemies) {
+		delete enemy;
+	}
+	enemies.clear();
 }
 
 void TestClass::Init() {
@@ -32,7 +37,7 @@ void TestClass::Init() {
 
 	//json
 	//ファイルを選択
-	const std::string fullpath = "resource/Levelediter/TL1_02_04.json";
+	const std::string fullpath = "resource/Levelediter/TL1_02_05.json";
 
 	//ファイルストリーム
 	std::ifstream file;
@@ -118,6 +123,25 @@ void TestClass::Init() {
 			playerSpawnData.rotation.y = (float)transform["rotation"][2];
 			playerSpawnData.rotation.z = (float)transform["rotation"][1];
 		}
+		else if (type.compare("EnemySpawn") == 0) {
+			//要素追加
+			levelData->spawnEnemies.emplace_back(LevelData::EnemySpawnData{});
+			//
+			LevelData::EnemySpawnData& enemySpawnData = levelData->spawnEnemies.back();
+			//トランスフォームのパラメータ読み込み
+			nlohmann::json& transform = object["transform"];
+			//BlenderのY軸とZ軸と違うため y = [2],z = [1]
+			//移動
+			enemySpawnData.translation.x = (float)transform["translation"][0];
+			enemySpawnData.translation.y = (float)transform["translation"][2];
+			enemySpawnData.translation.z = (float)transform["translation"][1];
+			//回転
+			enemySpawnData.rotation.x = (float)transform["rotation"][0];
+			enemySpawnData.rotation.y = (float)transform["rotation"][2];
+			enemySpawnData.rotation.z = (float)transform["rotation"][1];
+
+			//enemySpawnData.fileName = transform["name"];
+		}
 
 		//子ノード
 		if (object.contains("children")) {
@@ -157,11 +181,26 @@ void TestClass::Init() {
 		player->SetRotate(playerData.rotation);
 	}
 
+	if (!levelData->spawnEnemies.empty()) {
+		for (auto& enemyData : levelData->spawnEnemies) {
+			Enemy* enemy = new Enemy();
+			enemy->Initialize();
+			enemy->SetTranslate(enemyData.translation);
+			enemy->SetRotate(enemyData.rotation);
+			enemies.push_back(enemy);
+		}
+	}
+
 }
 
 void TestClass::Update() {
 	
 	player->Update();
+
+	for (auto& enemy : enemies) {
+		enemy->Update();
+	}
+
 
 	onLight = true;
 
@@ -204,4 +243,9 @@ void TestClass::Draw() {
 
 	//object_->Draw(worldTransform_);
 	player->Draw();
+
+	for (auto& enemy : enemies) {
+		enemy->Draw();
+	}
+
 }

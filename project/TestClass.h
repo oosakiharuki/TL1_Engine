@@ -3,7 +3,7 @@
 #include "Object3d.h"
 #include "MyMath.h"
 #include "Player.h"
-
+#include "Enemy.h"
 
 class TestClass {
 public:
@@ -21,8 +21,15 @@ struct LevelData {
 		Vector3 translation;
 		Vector3 rotation;
 	};
+	//敵の生成場所
+	struct EnemySpawnData {
+		std::string fileName;
+		Vector3 translation;
+		Vector3 rotation;
+	};
 	std::vector<ObjectData> objects;
 	std::vector<PlayerSpawnData> players;
+	std::vector<EnemySpawnData> spawnEnemies;
 };
 
 	TestClass();
@@ -45,4 +52,6 @@ private:
 	std::vector<Object3d*> objects;
 
 	Player* player;
+
+	std::vector<Enemy*> enemies;
 };

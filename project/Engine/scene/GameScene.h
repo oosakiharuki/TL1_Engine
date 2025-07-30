@@ -50,4 +50,7 @@ private:
 
 
 	TestClass* testClass = nullptr;
+
+	Object3d* objectG = nullptr;
+	WorldTransform wt;
 };
