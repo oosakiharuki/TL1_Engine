@@ -14,7 +14,11 @@ public:
 	void SetTranslate(Vector3 translate) { worldTransform.translation_ = translate; }
 	void SetRotate(Vector3 rotate) { worldTransform.rotation_ = rotate; }
 
+	void SetAABB(AABB aabb) { playerAABB = aabb; }
+	AABB GetAABB();
+
 private:
 	Object3d* object;
 	WorldTransform worldTransform;
+	AABB playerAABB;
 };

@@ -46,7 +46,7 @@ void TestClass::Init() {
 
 	//json
 	//ファイルを選択
-	const std::string fullpath = "resource/Levelediter/TL1_02_camera.json";
+	const std::string fullpath = "resource/Levelediter/TL1_02_collision.json";
 
 	//ファイルストリーム
 	std::ifstream file;
@@ -131,6 +131,17 @@ void TestClass::Init() {
 			playerSpawnData.rotation.x = (float)transform["rotation"][0];
 			playerSpawnData.rotation.y = (float)transform["rotation"][2];
 			playerSpawnData.rotation.z = (float)transform["rotation"][1];
+
+			//コライダー
+			nlohmann::json& collider = object["collider"];
+
+			//Vectorに変換
+			Vector3 center = { (float)collider["center"][0],(float)collider["center"][2], (float)collider["center"][1]};
+			Vector3 size = { (float)collider["size"][0],(float)collider["size"][2], (float)collider["size"][1] };
+
+			//AABBに追加
+			playerSpawnData.colliderAABB.min = center - (size / 2.0f);
+			playerSpawnData.colliderAABB.max = center + (size / 2.0f);
 		}
 		else if (type.compare("EnemySpawn") == 0) {
 			//要素追加
@@ -150,6 +161,17 @@ void TestClass::Init() {
 			enemySpawnData.rotation.z = (float)transform["rotation"][1];
 
 			//enemySpawnData.fileName = transform["name"];
+
+			//コライダー
+			nlohmann::json& collider = object["collider"];
+
+			//Vectorに変換
+			Vector3 center = { (float)collider["center"][0],(float)collider["center"][2], (float)collider["center"][1] };
+			Vector3 size = { (float)collider["size"][0],(float)collider["size"][2], (float)collider["size"][1] };
+
+			//AABBに追加
+			enemySpawnData.colliderAABB.min = center - (size / 2.0f);
+			enemySpawnData.colliderAABB.max = center + (size / 2.0f);
 		}
 		else if (type.compare("CAMERA") == 0) {
 			//要素追加
@@ -207,6 +229,7 @@ void TestClass::Init() {
 		auto& playerData = levelData->players[0];
 		player->SetTranslate(playerData.translation);
 		player->SetRotate(playerData.rotation);
+		player->SetAABB(playerData.colliderAABB);
 	}
 
 	if (!levelData->spawnEnemies.empty()) {
@@ -215,7 +238,8 @@ void TestClass::Init() {
 			enemy->Initialize();
 			enemy->SetTranslate(enemyData.translation);
 			enemy->SetRotate(enemyData.rotation);
-			enemies.push_back(enemy);
+			enemy->SetAABB(enemyData.colliderAABB);
+			enemies.push_back(enemy);			
 		}
 	}
 
@@ -230,9 +254,16 @@ void TestClass::Update() {
 
 	for (auto& enemy : enemies) {
 		enemy->Update();
+		
+		if(IsCollisionAABB(player->GetAABB(),enemy->GetAABB())){
+			enemy->IsHit();
+		}
+
 	}
 
 	camera->Update();
+
+
 
 	onLight = true;
 

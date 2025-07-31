@@ -20,22 +20,30 @@ struct LevelData {
 	struct PlayerSpawnData {
 		Vector3 translation;
 		Vector3 rotation;
+		AABB colliderAABB;
 	};
 	//敵の生成場所
 	struct EnemySpawnData {
 		std::string fileName;
 		Vector3 translation;
 		Vector3 rotation;
+		AABB colliderAABB;
 	};
 	//カメラの初期位置
 	struct CameraInitData {
 		Vector3 translation;
 		Vector3 rotation;
 	};
+	////コライダー
+	//struct ColliderData {
+	//	AABB colliderAABB;
+	//};
+
 	std::vector<ObjectData> objects;
 	std::vector<PlayerSpawnData> players;
 	std::vector<EnemySpawnData> spawnEnemies;
 	CameraInitData cameraInit;
+	//std::vector<ColliderData> colliders;
 };
 
 	TestClass();

@@ -18,7 +18,7 @@ void GameScene::Initialize() {
 
 	wt.Initialize();
 	wt.translation_.y = -1.0f;
-	wt.scale_ = { 2,2,2 };
+	wt.scale_ = { 5,5,5 };
 }
 
 void GameScene::Update() {
@@ -44,10 +44,6 @@ void GameScene::Update() {
 	objectG->Update();
 	wt.UpdateMatrix();
 
-	
-	spriteUI->SetSize(Vector2(128, 128));
-	spriteUI->Update();
-
 }
 
 void GameScene::Draw() {
@@ -71,7 +67,6 @@ void GameScene::Draw() {
 	//スプライト描画処理(UI用)
 	SpriteCommon::GetInstance()->Command();
 
-	spriteUI->Draw();
 }
 void GameScene::Finalize() {
 	
