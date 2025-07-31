@@ -27,19 +27,19 @@
             "name": "Camera",
             "transform": {
                 "translation": [
-                    -8.0,
-                    -9.940982818603516,
-                    5.0
+                    0.0,
+                    -12.720000267028809,
+                    6.539999961853027
                 ],
                 "rotation": [
-                    70.00000762939453,
-                    5.1185253369112615e-08,
-                    -32.0
+                    69.74969482421875,
+                    -0.0,
+                    0.0
                 ],
                 "scaling": [
                     1.0,
                     0.9999999403953552,
-                    1.0
+                    0.9999999403953552
                 ]
             }
         },
@@ -62,26 +62,18 @@
                     1.0,
                     1.0
                 ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn",
-            "transform": {
-                "translation": [
-                    -3.51719331741333,
+            },
+            "collider": {
+                "type": "BOX",
+                "center": [
+                    0.0,
                     0.0,
                     0.0
                 ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
+                "size": [
+                    2.0,
+                    2.0,
+                    2.0
                 ]
             }
         },
@@ -90,49 +82,7 @@
             "name": "EnemySpawn.001",
             "transform": {
                 "translation": [
-                    0.0,
-                    -3.0,
-                    0.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn.002",
-            "transform": {
-                "translation": [
-                    3.0,
-                    0.0,
-                    0.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn.003",
-            "transform": {
-                "translation": [
-                    0.0,
+                    4.0,
                     4.0,
                     0.0
                 ],
@@ -145,6 +95,87 @@
                     1.0,
                     1.0,
                     1.0
+                ]
+            },
+            "collider": {
+                "type": "BOX",
+                "center": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "size": [
+                    1.0,
+                    20.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "EnemySpawn",
+            "name": "EnemySpawn.003",
+            "transform": {
+                "translation": [
+                    0.0,
+                    5.0,
+                    0.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "collider": {
+                "type": "BOX",
+                "center": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "size": [
+                    0.5,
+                    0.5,
+                    0.5
+                ]
+            }
+        },
+        {
+            "type": "EnemySpawn",
+            "name": "EnemySpawn.004",
+            "transform": {
+                "translation": [
+                    -3.0,
+                    4.0,
+                    0.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "collider": {
+                "type": "BOX",
+                "center": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "size": [
+                    2.0,
+                    2.0,
+                    2.0
                 ]
             }
         }

@@ -46,7 +46,7 @@ void TestClass::Init() {
 
 	//json
 	//ファイルを選択
-	const std::string fullpath = "resource/Levelediter/TL1_02_collision.json";
+	const std::string fullpath = "resource/Levelediter/scene.json";
 
 	//ファイルストリーム
 	std::ifstream file;
