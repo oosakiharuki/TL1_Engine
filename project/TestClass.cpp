@@ -46,7 +46,7 @@ void TestClass::Init() {
 
 	//json
 	//ファイルを選択
-	const std::string fullpath = "resource/Levelediter/scene.json";
+	const std::string fullpath = "resource/Levelediter/scene01.json";
 
 	//ファイルストリーム
 	std::ifstream file;
@@ -120,6 +120,11 @@ void TestClass::Init() {
 			levelData->players.emplace_back(LevelData::PlayerSpawnData{});
 			//
 			LevelData::PlayerSpawnData& playerSpawnData = levelData->players.back();
+
+			if (object.contains("file_name")) {
+				//ファイル名
+				playerSpawnData.fileName = object["file_name"];
+			}
 			//トランスフォームのパラメータ読み込み
 			nlohmann::json& transform = object["transform"];
 			//BlenderのY軸とZ軸と違うため y = [2],z = [1]
@@ -134,6 +139,10 @@ void TestClass::Init() {
 
 			//コライダー
 			nlohmann::json& collider = object["collider"];
+
+			if (collider == nullptr) {
+				continue;
+			}
 
 			//Vectorに変換
 			Vector3 center = { (float)collider["center"][0],(float)collider["center"][2], (float)collider["center"][1]};
@@ -164,6 +173,10 @@ void TestClass::Init() {
 
 			//コライダー
 			nlohmann::json& collider = object["collider"];
+
+			if (collider == nullptr) {
+				continue;
+			}
 
 			//Vectorに変換
 			Vector3 center = { (float)collider["center"][0],(float)collider["center"][2], (float)collider["center"][1] };

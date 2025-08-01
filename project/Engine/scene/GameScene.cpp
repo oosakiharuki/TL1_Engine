@@ -5,6 +5,7 @@ void GameScene::Initialize() {
 	ModelManager::GetInstance()->LoadModel("playerHead");
 	ModelManager::GetInstance()->LoadModel("terrain");
 	ModelManager::GetInstance()->LoadModel("enemy");
+	ModelManager::GetInstance()->LoadModel("cannon");
 
  	testClass = new TestClass();
  	testClass->Init();

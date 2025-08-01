@@ -18,6 +18,7 @@ struct LevelData {
 	};	
 	//プレイヤーのスポーン場所
 	struct PlayerSpawnData {
+		std::string fileName;
 		Vector3 translation;
 		Vector3 rotation;
 		AABB colliderAABB;

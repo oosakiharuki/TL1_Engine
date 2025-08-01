@@ -17,6 +17,8 @@ public:
 	void SetAABB(AABB aabb) { playerAABB = aabb; }
 	AABB GetAABB();
 
+	void SetModelFile(std::string filename);
+
 private:
 	Object3d* object;
 	WorldTransform worldTransform;

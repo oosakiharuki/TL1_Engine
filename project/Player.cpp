@@ -45,3 +45,7 @@ AABB Player::GetAABB() {
 	aabb.max = worldTransform.translation_ + playerAABB.max;
 	return aabb;
 }
+
+void Player::SetModelFile(std::string filename) {
+
+}
